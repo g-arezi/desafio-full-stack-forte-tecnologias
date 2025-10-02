@@ -29,6 +29,12 @@ dist/
 build/
 out-tsc/
 
+# Angular cache
+.angular/
+
+# TypeScript build info
+*.tsbuildinfo
+
 # IDE
 .vscode/
 .idea/
