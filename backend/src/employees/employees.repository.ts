@@ -2,13 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { Employee } from '@prisma/client';
 
 @Injectable()
 export class EmployeesRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
+  async create(createEmployeeDto: CreateEmployeeDto): Promise<any> {
     return this.prisma.employee.create({
       data: createEmployeeDto,
       include: {
@@ -22,7 +21,7 @@ export class EmployeesRepository {
     });
   }
 
-  async findAll(): Promise<Employee[]> {
+  async findAll(): Promise<any[]> {
     return this.prisma.employee.findMany({
       include: {
         company: true,
@@ -35,7 +34,7 @@ export class EmployeesRepository {
     });
   }
 
-  async findOne(id: number): Promise<Employee | null> {
+  async findOne(id: number): Promise<any | null> {
     return this.prisma.employee.findUnique({
       where: { id },
       include: {
@@ -49,7 +48,7 @@ export class EmployeesRepository {
     });
   }
 
-  async update(id: number, updateEmployeeDto: UpdateEmployeeDto): Promise<Employee> {
+  async update(id: number, updateEmployeeDto: UpdateEmployeeDto): Promise<any> {
     return this.prisma.employee.update({
       where: { id },
       data: updateEmployeeDto,
@@ -64,25 +63,25 @@ export class EmployeesRepository {
     });
   }
 
-  async remove(id: number): Promise<Employee> {
+  async remove(id: number): Promise<any> {
     return this.prisma.employee.delete({
       where: { id },
     });
   }
 
-  async findByCpf(cpf: string): Promise<Employee | null> {
+  async findByCpf(cpf: string): Promise<any | null> {
     return this.prisma.employee.findUnique({
       where: { cpf },
     });
   }
 
-  async findByEmail(email: string): Promise<Employee | null> {
+  async findByEmail(email: string): Promise<any | null> {
     return this.prisma.employee.findUnique({
       where: { email },
     });
   }
 
-  async findByCompany(companyId: number): Promise<Employee[]> {
+  async findByCompany(companyId: number): Promise<any[]> {
     return this.prisma.employee.findMany({
       where: { companyId },
       include: {

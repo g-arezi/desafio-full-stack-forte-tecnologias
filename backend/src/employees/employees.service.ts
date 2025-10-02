@@ -3,7 +3,6 @@ import { EmployeesRepository } from './employees.repository';
 import { CompaniesService } from '../companies/companies.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { Employee } from '@prisma/client';
 
 @Injectable()
 export class EmployeesService {
@@ -12,7 +11,7 @@ export class EmployeesService {
     private companiesService: CompaniesService,
   ) {}
 
-  async create(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
+  async create(createEmployeeDto: CreateEmployeeDto): Promise<any> {
     // Check if company exists
     await this.companiesService.findOne(createEmployeeDto.companyId);
 
@@ -31,11 +30,11 @@ export class EmployeesService {
     return this.employeesRepository.create(createEmployeeDto);
   }
 
-  async findAll(): Promise<Employee[]> {
+  async findAll(): Promise<any[]> {
     return this.employeesRepository.findAll();
   }
 
-  async findOne(id: number): Promise<Employee> {
+  async findOne(id: number): Promise<any> {
     const employee = await this.employeesRepository.findOne(id);
     if (!employee) {
       throw new NotFoundException(`Employee with ID ${id} not found`);
@@ -43,7 +42,7 @@ export class EmployeesService {
     return employee;
   }
 
-  async update(id: number, updateEmployeeDto: UpdateEmployeeDto): Promise<Employee> {
+  async update(id: number, updateEmployeeDto: UpdateEmployeeDto): Promise<any> {
     // Check if employee exists
     await this.findOne(id);
 
@@ -71,13 +70,13 @@ export class EmployeesService {
     return this.employeesRepository.update(id, updateEmployeeDto);
   }
 
-  async remove(id: number): Promise<Employee> {
+  async remove(id: number): Promise<any> {
     // Check if employee exists
     await this.findOne(id);
     return this.employeesRepository.remove(id);
   }
 
-  async findByCompany(companyId: number): Promise<Employee[]> {
+  async findByCompany(companyId: number): Promise<any[]> {
     // Check if company exists
     await this.companiesService.findOne(companyId);
     return this.employeesRepository.findByCompany(companyId);

@@ -56,3 +56,4 @@ bootstrap().catch(err => {
   console.error('❌ Falha crítica:', err);
   process.exit(1);
 });
+
